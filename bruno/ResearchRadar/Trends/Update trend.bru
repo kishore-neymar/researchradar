@@ -1,0 +1,27 @@
+meta {
+  name: Update trend
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/api/trends/{{trendId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "topic": "Multimodal Medical AI",
+    "growthPercentage": 42,
+    "momentum": "High",
+    "description": "Updated growth description",
+    "relatedTags": ["AI", "Healthcare"],
+    "periodStart": "2026-01-01T00:00:00.000Z",
+    "periodEnd": "2026-09-01T00:00:00.000Z"
+  }
+}
+
+docs {
+  Update a research trend
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Save opportunity
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/saved-opportunities
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:json {
+  {
+    "opportunity": "{{opportunityId}}",
+    "status": "saved",
+    "notes": "Relevant to my research"
+  }
+}
+
+docs {
+  Save an opportunity for the authenticated user
+}

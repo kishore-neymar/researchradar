@@ -1,0 +1,20 @@
+meta {
+  name: List opportunities
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/opportunities
+  body: none
+  auth: none
+}
+
+params:query {
+  search: AI
+  active: true
+}
+
+docs {
+  Filter by text search and active status
+}

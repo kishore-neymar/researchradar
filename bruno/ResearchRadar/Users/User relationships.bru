@@ -1,0 +1,15 @@
+meta {
+  name: User relationships
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/users/{{userId}}/relationships
+  body: none
+  auth: none
+}
+
+docs {
+  Get saved opportunities for a user
+}

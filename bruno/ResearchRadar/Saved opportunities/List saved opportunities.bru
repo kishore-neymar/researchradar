@@ -1,0 +1,19 @@
+meta {
+  name: List saved opportunities
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/saved-opportunities
+  body: none
+  auth: none
+}
+
+params:query {
+  user: {{userId}}
+}
+
+docs {
+  List saved opportunities, optionally by user
+}
