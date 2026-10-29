@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "validate-models": "node scripts/validate-models.js"
+    "validate-models": "node scripts/validate-models.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -17,5 +19,8 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.18.0",
     "multer": "^2.5.0"
+  },
+  "devDependencies": {
+    "vitest": "^5.0.5"
   }
 }
