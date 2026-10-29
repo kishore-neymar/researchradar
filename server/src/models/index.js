@@ -1,0 +1,4 @@
+export { default as User } from './User.js'
+export { default as Opportunity } from './Opportunity.js'
+export { default as SavedOpportunity } from './SavedOpportunity.js'
+export { default as ResearchTrend } from './ResearchTrend.js'
