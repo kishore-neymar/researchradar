@@ -21,10 +21,14 @@ export function createApp() {
   app.use('/api/saved-opportunities', savedRouter)
 
   app.use((error, _request, response, _next) => {
+ feature/post-endpoints
     let status = 500
     if (error.name === 'ValidationError' || error.name === 'CastError') status = 400
     if (error.code === 11000) status = 409
-    response.status(status).json({ message: error.code === 11000 ? 'A record with this value already exists' : error.message })
+
+    const status = error.name === 'ValidationError' || error.name === 'CastError' ? 400 : 500
+    response.status(status).json({ message: error.message })
+ main
   })
 
   return app
