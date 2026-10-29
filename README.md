@@ -11,6 +11,16 @@ Open http://localhost:3000
 
 The app currently uses mock data and is ready to connect to real APIs/database later.
 
+## Netlify frontend deployment
+
+The frontend is configured for Netlify through `netlify.toml`:
+
+1. Import this repository into Netlify and select the repository root as the project directory.
+2. Netlify uses `npm run build` and the Next.js runtime plugin.
+3. Set `NEXT_PUBLIC_API_URL` to the deployed Render API URL, for example `https://researchradar-api.onrender.com`.
+4. Set `NEXT_PUBLIC_GOOGLE_CLIENT_ID` to the same Google OAuth Web Client ID used by the backend.
+5. Add the final Netlify URL to the authorized Google OAuth origins.
+
 ## Render backend deployment
 
 The API is configured for Render using `render.yaml` at the repository root:
