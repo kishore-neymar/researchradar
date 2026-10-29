@@ -2,6 +2,7 @@ import { Router } from 'express'
 import Opportunity from '../models/Opportunity.js'
 
 const router = Router()
+ feature/get-endpoints
 router.get('/summary', async (_request, response, next) => {
   try {
     const [total, active, deadlinesThisMonth] = await Promise.all([
@@ -12,6 +13,8 @@ router.get('/summary', async (_request, response, next) => {
     response.json({ total, active, deadlinesThisMonth })
   } catch (error) { next(error) }
 })
+
+ main
 router.get('/', async (request, response, next) => {
   try {
     const filter = {}

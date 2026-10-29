@@ -6,6 +6,7 @@ router.get('/', async (_request, response, next) => {
   try { response.json(await User.find().select('-passwordHash').lean()) }
   catch (error) { next(error) }
 })
+ feature/get-endpoints
 router.get('/:id', async (request, response, next) => {
   try {
     const user = await User.findById(request.params.id).select('-passwordHash').lean()
@@ -13,6 +14,7 @@ router.get('/:id', async (request, response, next) => {
     response.json(user)
   } catch (error) { next(error) }
 })
+main
 router.post('/', async (request, response, next) => {
   try {
     const user = await User.create(request.body)
