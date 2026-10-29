@@ -1,4 +1,8 @@
+ feature/react-update-delete
+export default function OpportunityCard({ opportunity, saved, onSave, onOpen, onEdit, onDelete }) {
+
 export default function OpportunityCard({ opportunity, saved, onSave, onOpen }) {
+ main
   return (
     <article className="opportunity-card">
       <div className="opportunity-heading">
@@ -19,6 +23,11 @@ export default function OpportunityCard({ opportunity, saved, onSave, onOpen }) 
         <button type="button" onClick={() => onSave(opportunity.title)}>
           {saved ? 'Saved' : 'Save'}
         </button>
+ feature/react-update-delete
+        <button type="button" onClick={() => onEdit(opportunity)}>Edit</button>
+        <button className="delete-button" type="button" onClick={() => onDelete(opportunity.title)}>Delete</button>
+
+ main
       </div>
     </article>
   )

@@ -1,4 +1,7 @@
+feature/react-update-delete
+
  feature/frontend-components
+ main
 import { useMemo, useState } from 'react'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
@@ -6,13 +9,22 @@ import StatsGrid from './components/StatsGrid'
 import OpportunityCard from './components/OpportunityCard'
 import './App.css'
 
+ feature/react-update-delete
+const initialOpportunities = [
+
 const opportunities = [
+ main
   { title: 'AI for Healthcare Research Grant', organization: 'Global Health Research Foundation', amount: '$250,000', deadline: '15 Dec 2026', match: 92, tags: ['AI', 'Healthcare', 'Medical Imaging'] },
   { title: 'Medical Imaging Innovation Grant', organization: 'Digital Medicine Initiative', amount: '$180,000', deadline: '20 Jan 2027', match: 87, tags: ['Computer Vision', 'Healthcare'] },
   { title: 'Next Generation AI Research Program', organization: 'Future Computing Council', amount: '$300,000', deadline: '05 Feb 2027', match: 81, tags: ['Generative AI', 'ML'] },
 ]
 
 export default function App() {
+feature/react-update-delete
+  const [opportunities, setOpportunities] = useState(initialOpportunities)
+  const [editing, setEditing] = useState(null)
+
+ main
   const [query, setQuery] = useState('')
   const [active, setActive] = useState('Dashboard')
   const [saved, setSaved] = useState([])
@@ -28,6 +40,30 @@ export default function App() {
       : [...current, title])
   }
 
+ feature/react-update-delete
+  const updateOpportunity = (event) => {
+    event.preventDefault()
+    const form = new FormData(event.currentTarget)
+    const updated = {
+      ...editing,
+      title: form.get('title').trim(),
+      organization: form.get('organization').trim(),
+      amount: form.get('amount').trim(),
+      deadline: form.get('deadline').trim(),
+    }
+    setOpportunities((current) => current.map((item) => item.title === editing.title ? updated : item))
+    setEditing(null)
+  }
+
+  const deleteOpportunity = (title) => {
+    if (!window.confirm(`Delete “${title}”?`)) return
+    setOpportunities((current) => current.filter((item) => item.title !== title))
+    setSaved((current) => current.filter((item) => item !== title))
+    if (selected?.title === title) setSelected(null)
+  }
+
+
+main
   return (
     <div className="app-shell">
       <Header query={query} onQueryChange={setQuery} />
@@ -42,7 +78,11 @@ export default function App() {
           <section className="content-grid">
             <div className="panel">
               <div className="panel-heading"><div><h2>Top funding opportunities</h2><p>Ranked by your research profile</p></div><button type="button" onClick={() => setActive('Opportunities')}>View all</button></div>
+feature/react-update-delete
+              <div>{filtered.map((item) => <OpportunityCard key={item.title} opportunity={item} saved={saved.includes(item.title)} onSave={toggleSaved} onOpen={setSelected} onEdit={setEditing} onDelete={deleteOpportunity} />)}</div>
+
               <div>{filtered.map((item) => <OpportunityCard key={item.title} opportunity={item} saved={saved.includes(item.title)} onSave={toggleSaved} onOpen={setSelected} />)}</div>
+ main
             </div>
             <aside className="panel trends-panel">
               <div className="panel-heading"><div><h2>Emerging trends</h2><p>Topics gaining momentum</p></div></div>
@@ -53,10 +93,16 @@ export default function App() {
           </section>
         </main>
       </div>
+ feature/react-update-delete
+      {editing && <div className="modal-backdrop" role="presentation" onClick={() => setEditing(null)}><form className="detail-modal edit-form" onSubmit={updateOpportunity} onClick={(event) => event.stopPropagation()}><button className="close-button" type="button" onClick={() => setEditing(null)}>×</button><h2>Edit opportunity</h2><label>Title<input name="title" defaultValue={editing.title} required /></label><label>Organization<input name="organization" defaultValue={editing.organization} required /></label><label>Amount<input name="amount" defaultValue={editing.amount} required /></label><label>Deadline<input name="deadline" defaultValue={editing.deadline} required /></label><div className="form-actions"><button className="secondary-button" type="button" onClick={() => setEditing(null)}>Cancel</button><button className="primary-button" type="submit">Save changes</button></div></form></div>}
+
+ main
       {selected && <div className="modal-backdrop" role="presentation" onClick={() => setSelected(null)}><article className="detail-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}><button className="close-button" type="button" onClick={() => setSelected(null)}>×</button><h2>{selected.title}</h2><p>{selected.organization}</p><strong>{selected.amount}</strong><p>Deadline: {selected.deadline}</p><button className="primary-button" type="button" onClick={() => toggleSaved(selected.title)}>{saved.includes(selected.title) ? 'Saved' : 'Save opportunity'}</button></article></div>}
     </div>
   )
 }
+ feature/react-update-delete
+
 
 import { useState } from 'react'
 import heroImg from './assets/hero.png'
@@ -180,4 +226,5 @@ function App() {
 }
 
 export default App
+ main
  main

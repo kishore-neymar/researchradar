@@ -1,3 +1,8 @@
+ feature/react-update-delete
+node_modules
+dist
+*.local
+
 feature/frontend-components
 node_modules
 dist
@@ -27,4 +32,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-main
+ main

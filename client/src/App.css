@@ -1,4 +1,7 @@
+ feature/react-update-delete
+
  feature/frontend-components
+main
 .app-shell { min-height: 100vh; background: #f8fafc; }
 .header { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 20; }
 .brand { border: 0; background: none; display: flex; align-items: center; gap: 12px; color: #0f172a; text-align: left; }
@@ -24,6 +27,14 @@
 .modal-backdrop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(15, 23, 42, .45); }.detail-modal { position: relative; width: min(520px, 100%); border-radius: 18px; padding: 28px; background: white; box-shadow: 0 24px 60px rgba(15,23,42,.25); }.detail-modal p { color: #64748b; }.close-button { position: absolute; right: 16px; top: 12px; border: 0; background: transparent; font-size: 24px; }
 @media (max-width: 900px) { .sidebar { display: none; }.stats-grid { grid-template-columns: repeat(2, 1fr); }.content-grid { grid-template-columns: 1fr; }.search-box { width: 220px; }.main-content { padding: 24px 16px; }.welcome-row h1 { font-size: 30px; } }
 @media (max-width: 560px) { .header { padding: 0 16px; }.search-box { width: 160px; }.brand small { display: none; }.welcome-row { align-items: flex-start; flex-direction: column; }.stats-grid { grid-template-columns: 1fr 1fr; }.opportunity-heading { flex-direction: column; }.opportunity-footer { align-items: flex-start; flex-wrap: wrap; } }
+
+ feature/react-update-delete
+.opportunity-footer .delete-button { color: #dc2626; }
+.edit-form { display: grid; gap: 14px; }
+.edit-form label { display: grid; gap: 6px; color: #475569; font-size: 13px; font-weight: 700; }
+.edit-form input { width: 100%; border: 1px solid #cbd5e1; border-radius: 9px; padding: 10px 12px; color: #0f172a; }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+.secondary-button { border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 16px; background: white; color: #475569; font-weight: 700; }
 
 .counter {
   font-size: 16px;
@@ -209,4 +220,5 @@
     border-right-color: var(--border);
   }
 }
+ main
  main
