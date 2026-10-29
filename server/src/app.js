@@ -5,6 +5,8 @@ import opportunitiesRouter from './routes/opportunities.js'
 import trendsRouter from './routes/trends.js'
 import usersRouter from './routes/users.js'
 import savedRouter from './routes/saved-opportunities.js'
+import authRouter from './routes/auth.js'
+import { requireAuth } from './middleware/auth.js'
 
 export function createApp() {
   const app = express()
@@ -19,6 +21,11 @@ export function createApp() {
   app.use('/api/trends', trendsRouter)
   app.use('/api/users', usersRouter)
   app.use('/api/saved-opportunities', savedRouter)
+  app.use('/api/auth', authRouter)
+
+  app.get('/api/auth/protected', requireAuth, (_request, response) => {
+    response.json({ message: 'Authenticated request successful', user: _request.user })
+  })
 
   app.use((error, _request, response, _next) => {
  feature/entity-relationships

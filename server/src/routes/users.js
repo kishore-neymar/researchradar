@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import bcrypt from 'bcryptjs'
 import User from '../models/User.js'
 
 const router = Router()
@@ -41,8 +42,10 @@ router.get('/:id', async (request, response, next) => {
  main
 router.post('/', async (request, response, next) => {
   try {
-    const { name, email, passwordHash, interests, skills, researchAreas, publications } = request.body
-    const user = await User.create({ name, email, passwordHash, interests, skills, researchAreas, publications })
+    const { name, username, email, password, passwordHash, interests, skills, researchAreas, publications } = request.body
+    const hashedPassword = password ? await bcrypt.hash(password, 12) : passwordHash
+    if (!hashedPassword) return response.status(400).json({ message: 'Password is required' })
+    const user = await User.create({ name, username, email, passwordHash: hashedPassword, interests, skills, researchAreas, publications })
     const result = user.toObject()
     delete result.passwordHash
     response.status(201).location(`/api/users/${user._id}`).json(result)
