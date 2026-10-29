@@ -1,0 +1,27 @@
+meta {
+  name: Create trend
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/trends
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "topic": "Multimodal Medical AI",
+    "growthPercentage": 38,
+    "momentum": "High",
+    "description": "Rapid growth in cross-modal healthcare research.",
+    "relatedTags": ["AI", "Healthcare"],
+    "periodStart": "2026-01-01T00:00:00.000Z",
+    "periodEnd": "2026-09-01T00:00:00.000Z"
+  }
+}
+
+docs {
+  Create a research trend
+}

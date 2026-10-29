@@ -1,0 +1,19 @@
+meta {
+  name: Protected JWT route
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/auth/protected
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  Verify a bearer token
+}

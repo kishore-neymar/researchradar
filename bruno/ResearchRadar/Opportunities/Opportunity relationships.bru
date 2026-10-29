@@ -1,0 +1,15 @@
+meta {
+  name: Opportunity relationships
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/opportunities/{{opportunityId}}/relationships
+  body: none
+  auth: none
+}
+
+docs {
+  Get creator and saved-record relationships
+}

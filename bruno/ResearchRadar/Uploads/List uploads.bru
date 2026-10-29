@@ -1,0 +1,19 @@
+meta {
+  name: List uploads
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/uploads
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  List uploads owned by the authenticated user
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Delete upload
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/api/uploads/{{uploadId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  Delete an owned upload
+}

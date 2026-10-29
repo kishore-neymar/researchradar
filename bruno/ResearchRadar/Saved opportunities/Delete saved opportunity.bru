@@ -1,0 +1,19 @@
+meta {
+  name: Delete saved opportunity
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/api/saved-opportunities/{{savedId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  Delete an owned saved-opportunity record
+}

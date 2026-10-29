@@ -1,0 +1,23 @@
+meta {
+  name: Upload file
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/uploads
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:multipart-form {
+  file: @file()
+}
+
+docs {
+  Upload a multipart file named file; PDF, Word, JPEG, or PNG up to 5 MB
+}

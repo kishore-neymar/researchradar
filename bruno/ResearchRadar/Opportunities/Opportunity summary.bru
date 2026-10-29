@@ -1,0 +1,15 @@
+meta {
+  name: Opportunity summary
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/opportunities/summary
+  body: none
+  auth: none
+}
+
+docs {
+  Return aggregate opportunity statistics
+}

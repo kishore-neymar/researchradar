@@ -1,0 +1,34 @@
+meta {
+  name: Update opportunity
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/api/opportunities/{{opportunityId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:json {
+  {
+    "title": "AI Healthcare Grant",
+    "organization": "Research Foundation",
+    "description": "Funding AI healthcare research.",
+    "amount": 250000,
+    "currency": "USD",
+    "deadline": "2027-01-15T00:00:00.000Z",
+    "tags": ["AI", "Healthcare"],
+    "sourceUrl": "https://example.com/grant",
+    "isActive": true,
+    "createdBy": "{{userId}}"
+  }
+}
+
+docs {
+  Replace an opportunity (JWT required)
+}

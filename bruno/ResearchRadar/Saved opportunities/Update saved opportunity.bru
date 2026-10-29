@@ -1,0 +1,26 @@
+meta {
+  name: Update saved opportunity
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/api/saved-opportunities/{{savedId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:json {
+  {
+    "status": "applied",
+    "notes": "Application submitted"
+  }
+}
+
+docs {
+  Update an owned saved-opportunity record
+}

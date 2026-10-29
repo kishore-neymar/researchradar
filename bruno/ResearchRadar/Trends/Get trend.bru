@@ -1,0 +1,15 @@
+meta {
+  name: Get trend
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/trends/{{trendId}}
+  body: none
+  auth: none
+}
+
+docs {
+  Get one research trend
+}

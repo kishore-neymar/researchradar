@@ -1,0 +1,21 @@
+meta {
+  name: Google login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/auth/google
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "credential": "google-id-token"
+  }
+}
+
+docs {
+  Exchange a verified Google credential for a JWT
+}

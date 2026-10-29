@@ -1,0 +1,26 @@
+meta {
+  name: Create user
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Researcher One",
+    "username": "researcher1",
+    "email": "researcher1@example.com",
+    "password": "securePass123",
+    "interests": ["AI"],
+    "skills": ["Machine Learning"]
+  }
+}
+
+docs {
+  Create a user record
+}

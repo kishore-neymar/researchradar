@@ -1,0 +1,19 @@
+meta {
+  name: Delete opportunity
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/api/opportunities/{{opportunityId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  Delete an opportunity (JWT required)
+}
