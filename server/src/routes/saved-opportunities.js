@@ -13,6 +13,7 @@ router.get('/', async (request, response, next) => {
 
 router.post('/', async (request, response, next) => {
   try {
+ feature/put-endpoints
     const { user, opportunity, status, notes } = request.body
     const saved = await SavedOpportunity.create({ user, opportunity, status, notes })
     response.status(201).location(`/api/saved-opportunities/${saved._id}`).json(saved)
@@ -29,6 +30,16 @@ router.put('/:id', async (request, response, next) => {
     ).populate('opportunity')
     if (!saved) return response.status(404).json({ message: 'Saved opportunity not found' })
     response.json(saved)
+
+ feature/post-endpoints
+    const { user, opportunity, status, notes } = request.body
+    const saved = await SavedOpportunity.create({ user, opportunity, status, notes })
+    response.status(201).location(`/api/saved-opportunities/${saved._id}`).json(saved)
+
+    const saved = await SavedOpportunity.create(request.body)
+    response.status(201).json(saved)
+ main
+ main
   } catch (error) { next(error) }
 })
 
