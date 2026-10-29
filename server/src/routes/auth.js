@@ -9,7 +9,11 @@ const router = Router()
 function signToken(user) {
   const secret = process.env.JWT_SECRET
   if (!secret) throw new Error('JWT_SECRET is not configured')
-  return jwt.sign({ userId: user._id, username: user.username }, secret, { expiresIn: '1h' })
+  return jwt.sign(
+    { userId: user._id.toString(), username: user.username },
+    secret,
+    { algorithm: 'HS256', expiresIn: '1h', issuer: 'researchradar-api', audience: 'researchradar-app' },
+  )
 }
 
 router.post('/register', async (request, response, next) => {
@@ -43,6 +47,16 @@ router.post('/login', async (request, response, next) => {
       return response.status(401).json({ message: 'Invalid username or password' })
     }
 
+    const result = user.toObject()
+    delete result.passwordHash
+    response.json({ token: signToken(user), user: result })
+  } catch (error) { next(error) }
+})
+
+router.post('/refresh', requireAuth, async (request, response, next) => {
+  try {
+    const user = await User.findById(request.user.userId)
+    if (!user) return response.status(404).json({ message: 'User not found' })
     const result = user.toObject()
     delete result.passwordHash
     response.json({ token: signToken(user), user: result })

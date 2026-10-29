@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import Opportunity from '../models/Opportunity.js'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 router.get('/summary', async (_request, response, next) => {
@@ -37,14 +38,14 @@ router.get('/:id', async (request, response, next) => {
     response.json(opportunity)
   } catch (error) { next(error) }
 })
-router.post('/', async (request, response, next) => {
+router.post('/', requireAuth, async (request, response, next) => {
   try {
     const { title, organization, description, amount, currency, deadline, tags, sourceUrl, isActive, createdBy } = request.body
     const opportunity = await Opportunity.create({ title, organization, description, amount, currency, deadline, tags, sourceUrl, isActive, createdBy })
     response.status(201).location(`/api/opportunities/${opportunity._id}`).json(opportunity)
   } catch (error) { next(error) }
 })
-router.put('/:id', async (request, response, next) => {
+router.put('/:id', requireAuth, async (request, response, next) => {
   try {
     const { title, organization, description, amount, currency, deadline, tags, sourceUrl, isActive, createdBy } = request.body
     const opportunity = await Opportunity.findByIdAndUpdate(
@@ -56,7 +57,7 @@ router.put('/:id', async (request, response, next) => {
     response.json(opportunity)
   } catch (error) { next(error) }
 })
-router.delete('/:id', async (request, response, next) => {
+router.delete('/:id', requireAuth, async (request, response, next) => {
   try {
     const opportunity = await Opportunity.findByIdAndDelete(request.params.id)
     if (!opportunity) return response.status(404).json({ message: 'Opportunity not found' })
