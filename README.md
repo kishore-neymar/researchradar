@@ -64,4 +64,14 @@ npm install
 npm run dev
 ```
 
+ feature/google-authentication
+The app currently uses mock data and is ready to connect to real APIs/database later.
+
+## Google authentication
+
+1. Create a Google OAuth 2.0 Web Client and add the application's frontend origin.
+2. Set `GOOGLE_CLIENT_ID` in `server/.env` and `NEXT_PUBLIC_GOOGLE_CLIENT_ID` in the Next.js environment.
+3. Google credentials are verified server-side before a ResearchRadar JWT is issued.
+
 Open http://localhost:3000. The app currently uses mock data and is ready to connect to real APIs and a database later.
+ main
