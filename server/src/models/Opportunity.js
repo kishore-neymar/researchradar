@@ -13,9 +13,28 @@ const opportunitySchema = new mongoose.Schema(
     isActive: { type: Boolean, default: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   },
+ feature/entity-relationships
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } },
+)
+
+opportunitySchema.virtual('savedRecords', {
+  ref: 'SavedOpportunity',
+  localField: '_id',
+  foreignField: 'opportunity',
+})
+
+opportunitySchema.pre('findOneAndDelete', async function () {
+  const opportunityId = this.getQuery()._id
+  if (mongoose.models.SavedOpportunity) {
+    await mongoose.models.SavedOpportunity.deleteMany({ opportunity: opportunityId })
+  }
+})
+
+
   { timestamps: true },
 )
 
+ main
 opportunitySchema.index({ title: 'text', description: 'text', tags: 'text' })
 
 export default mongoose.models.Opportunity || mongoose.model('Opportunity', opportunitySchema)

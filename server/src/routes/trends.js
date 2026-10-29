@@ -6,12 +6,15 @@ router.get('/', async (_request, response, next) => {
   try { response.json(await ResearchTrend.find().sort({ growthPercentage: -1 }).lean()) }
   catch (error) { next(error) }
 })
+ feature/entity-relationships
+
  feature/put-endpoints
 
  feature/post-endpoints
 
  feature/get-endpoints
 main
+ main
  main
 router.get('/:id', async (request, response, next) => {
   try {
@@ -20,9 +23,12 @@ router.get('/:id', async (request, response, next) => {
     response.json(trend)
   } catch (error) { next(error) }
 })
+ feature/entity-relationships
+
  feature/put-endpoints
 
  feature/post-endpoints
+ main
  main
 router.post('/', async (request, response, next) => {
   try {
@@ -30,7 +36,10 @@ router.post('/', async (request, response, next) => {
     const trend = await ResearchTrend.create({ topic, growthPercentage, momentum, description, relatedTags, periodStart, periodEnd })
     response.status(201).location(`/api/trends/${trend._id}`).json(trend)
   } catch (error) { next(error) }
+ feature/entity-relationships
+
  feature/put-endpoints
+ main
 })
 router.put('/:id', async (request, response, next) => {
   try {
@@ -43,12 +52,15 @@ router.put('/:id', async (request, response, next) => {
     if (!trend) return response.status(404).json({ message: 'Trend not found' })
     response.json(trend)
   } catch (error) { next(error) }
+ feature/entity-relationships
+
 
 
  main
 router.post('/', async (request, response, next) => {
   try { response.status(201).json(await ResearchTrend.create(request.body)) }
   catch (error) { next(error) }
+ main
  main
  main
 })
