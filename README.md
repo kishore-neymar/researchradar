@@ -11,6 +11,17 @@ Open http://localhost:3000
 
 The app currently uses mock data and is ready to connect to real APIs/database later.
 
+## Render backend deployment
+
+The API is configured for Render using `render.yaml` at the repository root:
+
+1. Create a new Render Blueprint from this GitHub repository.
+2. Set `MONGODB_URI` to the MongoDB connection string.
+3. Set `GOOGLE_CLIENT_ID` to the Google OAuth Web Client ID if Google login is used.
+4. Render automatically generates the `JWT_SECRET` and runs `npm install` followed by `npm start` from the `server` directory.
+
+The deployment health endpoint is `/api/health`.
+
 ## File uploads
 
 Authenticated users can upload PDF, Word, JPEG, and PNG files up to 5 MB from `/uploads`. Uploaded files are stored securely on the server, owned by the authenticated user, and available through the upload API.
