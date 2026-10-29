@@ -13,6 +13,7 @@ const opportunitySchema = new mongoose.Schema(
     isActive: { type: Boolean, default: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   },
+ feature/entity-relationships
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } },
 )
 
@@ -29,6 +30,11 @@ opportunitySchema.pre('findOneAndDelete', async function () {
   }
 })
 
+
+  { timestamps: true },
+)
+
+ main
 opportunitySchema.index({ title: 'text', description: 'text', tags: 'text' })
 
 export default mongoose.models.Opportunity || mongoose.model('Opportunity', opportunitySchema)
