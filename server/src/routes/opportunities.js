@@ -2,7 +2,10 @@ import { Router } from 'express'
 import Opportunity from '../models/Opportunity.js'
 
 const router = Router()
+ feature/post-endpoints
+
  feature/get-endpoints
+ main
 router.get('/summary', async (_request, response, next) => {
   try {
     const [total, active, deadlinesThisMonth] = await Promise.all([
@@ -13,7 +16,10 @@ router.get('/summary', async (_request, response, next) => {
     response.json({ total, active, deadlinesThisMonth })
   } catch (error) { next(error) }
 })
+ feature/post-endpoints
 
+
+ main
  main
 router.get('/', async (request, response, next) => {
   try {
@@ -31,8 +37,16 @@ router.get('/:id', async (request, response, next) => {
   } catch (error) { next(error) }
 })
 router.post('/', async (request, response, next) => {
+ feature/post-endpoints
+  try {
+    const { title, organization, description, amount, currency, deadline, tags, sourceUrl, isActive, createdBy } = request.body
+    const opportunity = await Opportunity.create({ title, organization, description, amount, currency, deadline, tags, sourceUrl, isActive, createdBy })
+    response.status(201).location(`/api/opportunities/${opportunity._id}`).json(opportunity)
+  } catch (error) { next(error) }
+
   try { response.status(201).json(await Opportunity.create(request.body)) }
   catch (error) { next(error) }
+ main
 })
 router.put('/:id', async (request, response, next) => {
   try {

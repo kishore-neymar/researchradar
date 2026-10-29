@@ -6,7 +6,9 @@ router.get('/', async (_request, response, next) => {
   try { response.json(await User.find().select('-passwordHash').lean()) }
   catch (error) { next(error) }
 })
- feature/get-endpoints
+ feature/post-endpoints
+
+ main
 router.get('/:id', async (request, response, next) => {
   try {
     const user = await User.findById(request.params.id).select('-passwordHash').lean()
@@ -14,6 +16,15 @@ router.get('/:id', async (request, response, next) => {
     response.json(user)
   } catch (error) { next(error) }
 })
+ feature/post-endpoints
+router.post('/', async (request, response, next) => {
+  try {
+    const { name, email, passwordHash, interests, skills, researchAreas, publications } = request.body
+    const user = await User.create({ name, email, passwordHash, interests, skills, researchAreas, publications })
+    const result = user.toObject()
+    delete result.passwordHash
+    response.status(201).location(`/api/users/${user._id}`).json(result)
+
 main
 router.post('/', async (request, response, next) => {
   try {
@@ -21,6 +32,7 @@ router.post('/', async (request, response, next) => {
     const result = user.toObject()
     delete result.passwordHash
     response.status(201).json(result)
+ main
   } catch (error) { next(error) }
 })
 export default router
