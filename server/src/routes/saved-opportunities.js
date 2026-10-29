@@ -14,8 +14,17 @@ router.get('/', async (request, response, next) => {
 
 router.post('/', requireAuth, async (request, response, next) => {
   try {
+ feature/jwt-authentication
     const { opportunity, status, notes } = request.body
     const saved = await SavedOpportunity.create({ user: request.user.userId, opportunity, status, notes })
+
+ feature/entity-relationships
+
+ feature/put-endpoints
+ main
+    const { user, opportunity, status, notes } = request.body
+    const saved = await SavedOpportunity.create({ user, opportunity, status, notes })
+ main
     response.status(201).location(`/api/saved-opportunities/${saved._id}`).json(saved)
   } catch (error) { next(error) }
 })
@@ -30,6 +39,19 @@ router.put('/:id', requireAuth, async (request, response, next) => {
     ).populate('opportunity')
     if (!saved) return response.status(404).json({ message: 'Saved opportunity not found' })
     response.json(saved)
+ feature/entity-relationships
+
+
+ feature/post-endpoints
+    const { user, opportunity, status, notes } = request.body
+    const saved = await SavedOpportunity.create({ user, opportunity, status, notes })
+    response.status(201).location(`/api/saved-opportunities/${saved._id}`).json(saved)
+
+    const saved = await SavedOpportunity.create(request.body)
+    response.status(201).json(saved)
+ main
+ main
+ main
   } catch (error) { next(error) }
 })
 
