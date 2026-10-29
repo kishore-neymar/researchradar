@@ -6,6 +6,7 @@ router.get('/', async (_request, response, next) => {
   try { response.json(await User.find().select('-passwordHash').lean()) }
   catch (error) { next(error) }
 })
+ feature/entity-relationships
 router.get('/:id/relationships', async (request, response, next) => {
   try {
     const user = await User.findById(request.params.id)
@@ -16,6 +17,14 @@ router.get('/:id/relationships', async (request, response, next) => {
     response.json(user)
   } catch (error) { next(error) }
 })
+
+ feature/put-endpoints
+
+ feature/post-endpoints
+
+ main
+ main
+ main
 router.get('/:id', async (request, response, next) => {
   try {
     const user = await User.findById(request.params.id).select('-passwordHash').lean()
@@ -23,6 +32,13 @@ router.get('/:id', async (request, response, next) => {
     response.json(user)
   } catch (error) { next(error) }
 })
+ feature/entity-relationships
+
+ feature/put-endpoints
+
+ feature/post-endpoints
+ main
+ main
 router.post('/', async (request, response, next) => {
   try {
     const { name, email, passwordHash, interests, skills, researchAreas, publications } = request.body
@@ -30,6 +46,10 @@ router.post('/', async (request, response, next) => {
     const result = user.toObject()
     delete result.passwordHash
     response.status(201).location(`/api/users/${user._id}`).json(result)
+ feature/entity-relationships
+
+feature/put-endpoints
+ main
   } catch (error) { next(error) }
 })
 router.put('/:id', async (request, response, next) => {
@@ -42,6 +62,20 @@ router.put('/:id', async (request, response, next) => {
     ).select('-passwordHash')
     if (!user) return response.status(404).json({ message: 'User not found' })
     response.json(user)
+ feature/entity-relationships
+
+
+
+main
+router.post('/', async (request, response, next) => {
+  try {
+    const user = await User.create(request.body)
+    const result = user.toObject()
+    delete result.passwordHash
+    response.status(201).json(result)
+ main
+ main
+ main
   } catch (error) { next(error) }
 })
 export default router
