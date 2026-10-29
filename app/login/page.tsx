@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
@@ -11,6 +11,42 @@ export default function LoginPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+    if (!clientId) return
+
+    const script = document.createElement('script')
+    script.src = 'https://accounts.google.com/gsi/client'
+    script.async = true
+    script.onload = () => {
+      const google = (window as typeof window & { google?: any }).google
+      if (!google) return
+      google.accounts.id.initialize({
+        client_id: clientId,
+        callback: async (response: { credential: string }) => {
+          setError('')
+          try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+            const result = await fetch(`${apiUrl}/api/auth/google`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ credential: response.credential }),
+            })
+            const data = await result.json()
+            if (!result.ok) throw new Error(data.message || 'Google authentication failed')
+            localStorage.setItem('researchradar_token', data.token)
+            router.push('/')
+          } catch (caught) {
+            setError(caught instanceof Error ? caught.message : 'Google authentication failed')
+          }
+        },
+      })
+      google.accounts.id.renderButton(document.getElementById('google-sign-in'), { theme: 'outline', size: 'large', width: 360 })
+    }
+    document.head.appendChild(script)
+    return () => { script.remove() }
+  }, [router])
 
   async function submit(event: FormEvent) {
     event.preventDefault()
@@ -46,6 +82,7 @@ export default function LoginPage() {
         <input required minLength={mode === 'register' ? 8 : undefined} type="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2.5" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} />
         {error && <p className="mt-4 text-sm font-medium text-red-600">{error}</p>}
         <button className="mt-5 w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white">{mode === 'login' ? 'Sign in' : 'Register'}</button>
+        <div id="google-sign-in" className="mt-4 flex justify-center" />
         <button type="button" onClick={() => setMode(mode === 'login' ? 'register' : 'login')} className="mt-4 w-full text-sm font-semibold text-blue-600">
           {mode === 'login' ? 'Create an account' : 'Already have an account? Sign in'}
         </button>
