@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import { verifyAuthToken } from '../utils/authToken.js'
 
 export function requireAuth(request, response, next) {
   const authorization = request.headers.authorization
@@ -7,13 +7,7 @@ export function requireAuth(request, response, next) {
   }
 
   try {
-    const secret = process.env.JWT_SECRET
-    if (!secret) throw new Error('JWT_SECRET is not configured')
-    request.user = jwt.verify(authorization.slice(7), secret, {
-      algorithms: ['HS256'],
-      issuer: 'researchradar-api',
-      audience: 'researchradar-app',
-    })
+    request.user = verifyAuthToken(authorization.slice(7))
     next()
   } catch (_error) {
     response.status(401).json({ message: 'Invalid or expired token' })

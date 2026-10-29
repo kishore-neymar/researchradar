@@ -11,6 +11,10 @@ Open http://localhost:3000
 
 The app currently uses mock data and is ready to connect to real APIs/database later.
 
+## Unit testing
+
+The server uses Vitest for unit tests. From the `server` directory, run `npm test` to execute the JWT authentication test suite, including token signing, verification, expiration, secret validation, and bearer-token middleware checks.
+
 ## Netlify frontend deployment
 
 The frontend is configured for Netlify through `netlify.toml`:

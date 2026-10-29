@@ -1,21 +1,13 @@
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import { signAuthToken } from '../utils/authToken.js'
 import User from '../models/User.js'
 import { requireAuth } from '../middleware/auth.js'
 import { OAuth2Client } from 'google-auth-library'
 
 const router = Router()
 
-function signToken(user) {
-  const secret = process.env.JWT_SECRET
-  if (!secret) throw new Error('JWT_SECRET is not configured')
-  return jwt.sign(
-    { userId: user._id.toString(), username: user.username },
-    secret,
-    { algorithm: 'HS256', expiresIn: '1h', issuer: 'researchradar-api', audience: 'researchradar-app' },
-  )
-}
+const signToken = signAuthToken
 
 router.post('/register', async (request, response, next) => {
   try {
