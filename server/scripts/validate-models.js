@@ -1,6 +1,6 @@
-import { Opportunity, ResearchTrend, SavedOpportunity, User } from '../src/models/index.js'
+import { Opportunity, ResearchTrend, SavedOpportunity, Upload, User } from '../src/models/index.js'
 
-const models = [User, Opportunity, SavedOpportunity, ResearchTrend]
+const models = [User, Opportunity, SavedOpportunity, ResearchTrend, Upload]
 
 for (const Model of models) {
   const document = new Model()
