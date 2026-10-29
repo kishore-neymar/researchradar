@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+client
+server/node_modules
+server/uploads
+*.log
+.env*

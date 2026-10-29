@@ -11,6 +11,21 @@ Open http://localhost:3000
 
 The app currently uses mock data and is ready to connect to real APIs/database later.
 
+## Docker containerization
+
+The complete stack can be containerized with Docker Compose:
+
+```bash
+GOOGLE_CLIENT_ID=your-google-client-id docker compose up --build
+```
+
+- Frontend: `http://localhost:3000`
+- Backend API: `http://localhost:5000`
+- Health check: `http://localhost:5000/api/health`
+- MongoDB: `mongodb://localhost:27017`
+
+The Compose stack runs the Next.js frontend, Express API, and MongoDB. Stop it with `docker compose down`; add `-v` to remove the database and uploads volumes.
+
 ## Unit testing
 
 The server uses Vitest for unit tests. From the `server` directory, run `npm test` to execute the JWT authentication test suite, including token signing, verification, expiration, secret validation, and bearer-token middleware checks.
