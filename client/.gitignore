@@ -1,3 +1,8 @@
+feature/frontend-components
+node_modules
+dist
+*.local
+
 # Logs
 logs
 *.log
@@ -22,3 +27,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+main

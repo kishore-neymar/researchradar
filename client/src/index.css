@@ -1,3 +1,10 @@
+ feature/frontend-components
+:root { font-family: Inter, system-ui, sans-serif; color: #0f172a; background: #f8fafc; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -109,3 +116,4 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+ main
