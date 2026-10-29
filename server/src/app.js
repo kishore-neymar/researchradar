@@ -10,6 +10,7 @@ import { requireAuth } from './middleware/auth.js'
 import uploadsRouter from './routes/uploads.js'
 import multer from 'multer'
 import path from 'node:path'
+import aiRouter from './routes/ai.js'
 
 export function createApp() {
   const app = express()
@@ -27,6 +28,7 @@ export function createApp() {
   app.use('/api/saved-opportunities', savedRouter)
   app.use('/api/auth', authRouter)
   app.use('/api/uploads', uploadsRouter)
+  app.use('/api/ai', aiRouter)
 
   app.get('/api/auth/protected', requireAuth, (_request, response) => {
     response.json({ message: 'Authenticated request successful', user: _request.user })

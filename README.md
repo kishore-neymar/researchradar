@@ -26,6 +26,10 @@ GOOGLE_CLIENT_ID=your-google-client-id docker compose up --build
 
 The Compose stack runs the Next.js frontend, Express API, and MongoDB. Stop it with `docker compose down`; add `-v` to remove the database and uploads volumes.
 
+## AI autocomplete
+
+The opportunity search includes debounced AI-powered autocomplete. The backend exposes `POST /api/ai/autocomplete`, uses `OPENAI_API_KEY` with `gpt-4o-mini` by default, and falls back to local research-topic suggestions when no API key is configured.
+
 ## Unit testing
 
 The server uses Vitest for unit tests. From the `server` directory, run `npm test` to execute the JWT authentication test suite, including token signing, verification, expiration, secret validation, and bearer-token middleware checks.
