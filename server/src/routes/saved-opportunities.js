@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import SavedOpportunity from '../models/SavedOpportunity.js'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 
@@ -11,23 +12,28 @@ router.get('/', async (request, response, next) => {
   } catch (error) { next(error) }
 })
 
-router.post('/', async (request, response, next) => {
+router.post('/', requireAuth, async (request, response, next) => {
   try {
+ feature/jwt-authentication
+    const { opportunity, status, notes } = request.body
+    const saved = await SavedOpportunity.create({ user: request.user.userId, opportunity, status, notes })
+
  feature/entity-relationships
 
  feature/put-endpoints
  main
     const { user, opportunity, status, notes } = request.body
     const saved = await SavedOpportunity.create({ user, opportunity, status, notes })
+ main
     response.status(201).location(`/api/saved-opportunities/${saved._id}`).json(saved)
   } catch (error) { next(error) }
 })
 
-router.put('/:id', async (request, response, next) => {
+router.put('/:id', requireAuth, async (request, response, next) => {
   try {
     const { status, notes } = request.body
-    const saved = await SavedOpportunity.findByIdAndUpdate(
-      request.params.id,
+    const saved = await SavedOpportunity.findOneAndUpdate(
+      { _id: request.params.id, user: request.user.userId },
       { status, notes },
       { new: true, runValidators: true },
     ).populate('opportunity')
@@ -49,9 +55,9 @@ router.put('/:id', async (request, response, next) => {
   } catch (error) { next(error) }
 })
 
-router.delete('/:id', async (request, response, next) => {
+router.delete('/:id', requireAuth, async (request, response, next) => {
   try {
-    const saved = await SavedOpportunity.findByIdAndDelete(request.params.id)
+    const saved = await SavedOpportunity.findOneAndDelete({ _id: request.params.id, user: request.user.userId })
     if (!saved) return response.status(404).json({ message: 'Saved opportunity not found' })
     response.status(204).send()
   } catch (error) { next(error) }

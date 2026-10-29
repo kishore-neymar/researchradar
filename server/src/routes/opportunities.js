@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import Opportunity from '../models/Opportunity.js'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
  feature/entity-relationships
@@ -61,12 +62,16 @@ router.get('/:id', async (request, response, next) => {
     response.json(opportunity)
   } catch (error) { next(error) }
 })
+ feature/jwt-authentication
+router.post('/', requireAuth, async (request, response, next) => {
+
 router.post('/', async (request, response, next) => {
  feature/entity-relationships
 
  feature/put-endpoints
 
  feature/post-endpoints
+ main
  main
  main
   try {
@@ -79,7 +84,7 @@ router.post('/', async (request, response, next) => {
  feature/put-endpoints
  main
 })
-router.put('/:id', async (request, response, next) => {
+router.put('/:id', requireAuth, async (request, response, next) => {
   try {
     const { title, organization, description, amount, currency, deadline, tags, sourceUrl, isActive, createdBy } = request.body
     const opportunity = await Opportunity.findByIdAndUpdate(
@@ -104,7 +109,7 @@ router.put('/:id', async (request, response, next) => {
     response.json(opportunity)
   } catch (error) { next(error) }
 })
-router.delete('/:id', async (request, response, next) => {
+router.delete('/:id', requireAuth, async (request, response, next) => {
   try {
     const opportunity = await Opportunity.findByIdAndDelete(request.params.id)
     if (!opportunity) return response.status(404).json({ message: 'Opportunity not found' })
